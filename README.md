@@ -20,3 +20,10 @@ List or remove yarn linked modules
     "scripts": {
         "linked": "yarn-linked"
     }
+
+## Use completions
+
+    in .zshrc file
+    ```shell
+    . $(npm root -g)"/yarn-linked/_completions"
+    ```
