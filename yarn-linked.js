@@ -5,9 +5,12 @@ const ora = require('ora');
 const path = require('path');
 const glob = require('glob');
 const exec = require('child_process').exec;
+const yargs = require('yargs');
 const NODE_MODULES = 'node_modules';
+
 // available commands
 const COMMANDS = ['list', 'remove'];
+
 const command_handlers = {
     listLinked(cwd, level = 0) {
         const modules = path.join(cwd, NODE_MODULES);
@@ -44,6 +47,7 @@ const command_handlers = {
         }
     }
 };
+
 // get all symbolic links
 function getLinked(cwd) {
     return glob
@@ -54,6 +58,20 @@ function getLinked(cwd) {
             return stat.isSymbolicLink();
         });
 }
+
+// building help
+const argv = yargs
+    .usage('Usage: $0 <command> [options]')
+    .command('list', 'list all linked modules')
+    .command('remove', 'remove all linked modules')
+    .example('$0 remove', 'remove linked modules').argv;
+
+// current dir
 const cwd = process.cwd();
-const cmd = process.argv.length > 2 ? process.argv[2] : COMMANDS[0];
-command_handlers[`${cmd}Linked`](cwd);
+const cmd = argv._.shift() || COMMANDS[0];
+const _func = command_handlers[`${cmd}Linked`];
+if (!_func) {
+    yargs.showHelp();
+} else {
+    _func(cwd);
+}
