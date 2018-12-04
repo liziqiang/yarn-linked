@@ -1,0 +1,12 @@
+_yarn_linked()
+{
+  local reply
+  local si=$IFS
+
+  # ask yargs to generate completions.
+  IFS=$'\n' reply=($(COMP_CWORD="$((CURRENT-1))" COMP_LINE="$BUFFER" COMP_POINT="$CURSOR" yarn-linked --get-yargs-completions "${words[@]}"))
+  IFS=$si
+
+  _describe 'values' reply
+}
+compdef _yarn_linked yarn-linked
