@@ -3,9 +3,8 @@
 List or remove yarn linked modules
 
     $ yarn-linked
-    Linked modules in /home/user/projects/some-project/
-        @prefix/package 0.1.1
-            other-package 0.2.2
+    @prefix/package 0.1.1
+        other-package 0.2.2
     
 ## Use globally
 
