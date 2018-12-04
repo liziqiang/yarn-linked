@@ -65,7 +65,7 @@ const argv = yargs
     .command('list', 'list all linked modules')
     .command('remove', 'remove all linked modules')
     .example('$0 remove', 'remove linked modules')
-    .completion()
+    .completion('completion', () => COMMANDS)
     .argv;
 
 // current dir
