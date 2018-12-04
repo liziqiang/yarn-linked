@@ -64,7 +64,9 @@ const argv = yargs
     .usage('Usage: $0 <command> [options]')
     .command('list', 'list all linked modules')
     .command('remove', 'remove all linked modules')
-    .example('$0 remove', 'remove linked modules').argv;
+    .example('$0 remove', 'remove linked modules')
+    .completion()
+    .argv;
 
 // current dir
 const cwd = process.cwd();
