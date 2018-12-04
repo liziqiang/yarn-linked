@@ -13,7 +13,6 @@ const command_handlers = {
         const modules = path.join(cwd, NODE_MODULES);
         const linked = getLinked(modules);
         if (linked.length) {
-            !level && console.log(`Linked modules in ${cwd}`);
             linked.forEach(link => {
                 const version = fs.readJsonSync(
                     path.join(modules, link, 'package.json')
