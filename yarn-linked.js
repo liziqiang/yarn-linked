@@ -21,7 +21,7 @@ const command_handlers = {
                     path.join(modules, link, 'package.json')
                 ).version;
                 console.log(`${' '.repeat(level * 4)}${link} ${version}`);
-                this.listLinked(path.join(modules, link), level + 1);
+                command_handlers.listLinked(path.join(modules, link), level + 1);
             });
         }
     },
