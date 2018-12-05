@@ -1,6 +1,6 @@
 {
   "name": "yarn-linked",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "List or remove yarn linked modules",
   "bin": {
     "yarn-linked": "yarn-linked.js"

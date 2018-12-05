@@ -21,7 +21,7 @@ const command_handlers = {
                     path.join(modules, link, 'package.json')
                 ).version;
                 console.log(`${' '.repeat(level * 4)}${link} ${version}`);
-                command_handlers.listLinked(path.join(modules, link), level + 1);
+                this.listLinked(path.join(modules, link), level + 1);
             });
         }
     },
@@ -75,5 +75,5 @@ const _func = command_handlers[`${cmd}Linked`];
 if (!_func) {
     yargs.showHelp();
 } else {
-    _func(cwd);
+    _func.call(command_handlers, cwd);
 }
