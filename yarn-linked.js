@@ -42,7 +42,7 @@ const command_handlers = {
                     })
                 };
             });
-            new Listr(tasks).run().catch((err) => console.log(err));
+            new Listr(tasks, { concurrent: true }).run().catch((err) => console.log(err));
         }
     }
 };
