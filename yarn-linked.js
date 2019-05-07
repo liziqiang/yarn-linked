@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 
 const fs = require('fs-extra');
-const ora = require('ora');
 const path = require('path');
 const glob = require('glob');
 const exec = require('child_process').exec;
+const Listr = require('listr');
 const yargs = require('yargs');
 const NODE_MODULES = 'node_modules';
 
@@ -30,20 +30,19 @@ const command_handlers = {
         const modules = path.join(cwd, NODE_MODULES);
         const linked = getLinked(modules);
         if (linked.length) {
-            ora().info('unlinking modules...');
-            linked.forEach(link => {
-                let spinner = ora().start(link);
-                exec(`yarn unlink ${link}`, err => {
-                    if (err) {
-                        console.log(err);
-                    } else {
-                        // fade delay
-                        setTimeout(() => {
-                            spinner.succeed(link);
-                        }, Math.random() * 1000);
-                    }
-                });
+            const tasks = linked.map((link) => {
+                return {
+                    title: `unlinking "${link}"`,
+                    task: () => new Promise((resolve) => {
+                        exec(`yarn unlink ${link}`, (err) => {
+                            if (!err) {
+                                resolve();
+                            }
+                        })
+                    })
+                };
             });
+            new Listr(tasks).run().catch((err) => console.log(err));
         }
     }
 };
