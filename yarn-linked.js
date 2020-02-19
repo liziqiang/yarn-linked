@@ -63,7 +63,8 @@ const argv = yargs
     .usage('Usage: $0 <command> [options]')
     .command('list', 'list all linked modules')
     .command('remove', 'remove all linked modules')
-    .example('$0 remove', 'remove linked modules')
+    .example('$0 remove', 'remove all linked modules')
+    .example('$0 remove module', 'remove specified linked module')
     .completion('completion', () => COMMANDS)
     .argv;
 
