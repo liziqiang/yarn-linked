@@ -26,9 +26,9 @@ const command_handlers = {
         }
     },
     // only remove top level linked modules
-    removeLinked(cwd) {
+    removeLinked(cwd, module) {
         const modules = path.join(cwd, NODE_MODULES);
-        const linked = getLinked(modules);
+        const linked = getLinked(modules).filter((v) => module ? v === module : true);
         if (linked.length) {
             const tasks = linked.map((link) => {
                 return {
@@ -74,5 +74,5 @@ const _func = command_handlers[`${cmd}Linked`];
 if (!_func) {
     yargs.showHelp();
 } else {
-    _func.call(command_handlers, cwd);
+    _func.call(command_handlers, cwd, argv._.shift());
 }
